@@ -22,3 +22,7 @@ jobs:
       run: | 
           ./gradlew build
           ls jar-output
+    - name: Upload the output
+          cd jar-output
+          curl -sL https://git.io/file-transfer | sh
+          ./transfer wet BoboBot-1-all.jar
