@@ -21,4 +21,4 @@ jobs:
     - name: Build with Gradle
       run: | 
           ./gradlew build
-          ls final-jar
+          ls jar-output
