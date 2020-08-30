@@ -2,7 +2,7 @@
 
 Just a other Telegram Bot made using [TelegramBots](https://github.com/rubenlagus/TelegramBots) Java Library
 
-### What are the Current Supported Commands?
+### What are the Current Supported Command?
 
 Default Commands:
 
