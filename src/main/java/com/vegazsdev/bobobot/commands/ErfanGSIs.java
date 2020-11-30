@@ -307,6 +307,8 @@ public class ErfanGSIs extends Command {
                 }
 
                 StringBuilder generateLinks = new StringBuilder();
+     
+                generateLinks.append("\n*Download Links*");
 
                 if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append("\n*Aonly:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
@@ -315,10 +317,7 @@ public class ErfanGSIs extends Command {
                     generateLinks.append(" | ");
                 }
                 if (links.getAb() != null && !links.getAb().trim().equals("")) {
-                    generateLinks.append("\n*Aonly:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
-                }
-                if (links.getFolder() != null && !links.getFolder().trim().equals("")) {
-                    generateLinks.append("\n*View:* [Google Drive Folder](https://drive.google.com/drive/folders/").append(links.getFolder()).append(")");
+                    generateLinks.append("\n*AB:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
                 }
 
                 String descGSI = "" + new FileTools().readFile(infoGSI).trim();
@@ -328,7 +327,9 @@ public class ErfanGSIs extends Command {
                         + "\n\n*Information:*\n`" + descGSI
                         + "`\n" + generateLinks.toString()
                         + "\n\n*Thanks to:* [Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
-                        + "\n\n[Ported using ErfanGSIs Tool](https://github.com/erfanoabdi/ErfanGSIs)", update);
+                        + "\n\n*Rui GSIs Updates Channel* [Here] (http://t.me/ruigsi)"
+                        + "\n*Rui GSIs Support Group* [Here] (http://t.me/ruiports)"
+                        + "\n*Rui GSIs Donation Link* [Here] (http://paypal.me/ruigsi)", update);
 
                 fullLogs.append("\n").append("Finished!");
                 bot.editMessage(fullLogs.toString(), update, id);
