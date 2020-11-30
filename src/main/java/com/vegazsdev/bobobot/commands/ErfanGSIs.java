@@ -196,6 +196,39 @@ public class ErfanGSIs extends Command {
         return Arrays.asList(Objects.requireNonNull(JSONs.getArrayFromJSON(portConfigFile)).toArray()).contains(idAsString);
     }
 
+    private StringBuilder getModelOfOutput() {
+        // Dump
+        StringBuilder generic = new StringBuilder();
+        generic.append("Generic");
+
+        StringBuilder fullLogs = new StringBuilder();
+        try {
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("/bin/bash", "-c",
+                    "grep -oP \"(?<=^Model: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*txt | head -1"
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            InputStream is = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line;
+                if (line.contains("qssi")) {
+                    line = "QSSI (Qualcomm Generic)";
+                }
+                fullLogs.append(line);
+            }
+            if (fullLogs.equals("")) {
+                return generic;
+            }
+            return fullLogs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generic;
+    }
+
     private void createGSI(GSICmdObj gsiCmdObj, TelegramBot bot) {
         Update update = gsiCmdObj.getUpdate();
         ProcessBuilder pb;
@@ -276,10 +309,13 @@ public class ErfanGSIs extends Command {
                 StringBuilder generateLinks = new StringBuilder();
 
                 if (links.getA() != null && !links.getA().trim().equals("")) {
-                    generateLinks.append("\n*Download A-Only:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
+                    generateLinks.append("\n*Aonly:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
+                }
+                if (links.getA() != null && !links.getA().trim().equals("")) {
+                    generateLinks.append(" | ");
                 }
                 if (links.getAb() != null && !links.getAb().trim().equals("")) {
-                    generateLinks.append("\n*Download A/B:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
+                    generateLinks.append("\n*Aonly:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
                 }
                 if (links.getFolder() != null && !links.getFolder().trim().equals("")) {
                     generateLinks.append("\n*View:* [Google Drive Folder](https://drive.google.com/drive/folders/").append(links.getFolder()).append(")");
@@ -287,11 +323,11 @@ public class ErfanGSIs extends Command {
 
                 String descGSI = "" + new FileTools().readFile(infoGSI).trim();
 
-                bot.sendMessage("*GSI: " + gsiCmdObj.getGsi() + "*\n\n"
-                        + "*Firmware Base: *" + "[URL](" + gsiCmdObj.getUrl() + ")"
+                bot.sendMessage("*" + gsiCmdObj.getGsi() + " GSI*"
+                        + "\n*From " + getModelOfOutput() + "*"
                         + "\n\n*Information:*\n`" + descGSI
                         + "`\n" + generateLinks.toString()
-                        + "\n\n*Thanks to:* [Contributors List](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors)"
+                        + "\n\n*Thanks to:* [Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
                         + "\n\n[Ported using ErfanGSIs Tool](https://github.com/erfanoabdi/ErfanGSIs)", update);
 
                 fullLogs.append("\n").append("Finished!");
