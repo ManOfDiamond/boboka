@@ -32,7 +32,7 @@ public class ErfanGSIs extends Command {
     private final String toolPath = "ErfanGSIs/";
     private File[] supportedGSIs9 = new File(toolPath + "roms/9").listFiles(File::isDirectory);
     private File[] supportedGSIs10 = new File(toolPath + "roms/10").listFiles(File::isDirectory);
-    private File[] supportedGSIs10 = new File(toolPath + "roms/11").listFiles(File::isDirectory);
+    private File[] supportedGSIs11 = new File(toolPath + "roms/11").listFiles(File::isDirectory);
     private String infoGSI = "";
 
     public ErfanGSIs() {
