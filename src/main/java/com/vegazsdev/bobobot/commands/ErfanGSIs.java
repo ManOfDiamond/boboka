@@ -206,7 +206,73 @@ public class ErfanGSIs extends Command {
         try {
             ProcessBuilder pb;
             pb = new ProcessBuilder("/bin/bash", "-c",
-                    "grep -oP \"(?<=^Model: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*brand.txt | head -1"
+                    "grep -oP \"(?<=^Model: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*model.txt | head -1"
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            InputStream is = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line;
+                if (line.contains("qssi")) {
+                    line = "QSSI (Qualcomm Generic)";
+                }
+                fullLogs.append(line);
+            }
+            if (fullLogs.equals("")) {
+                return generic;
+            }
+            return fullLogs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generic;
+    }
+    
+    private StringBuilder getBrandOfOutput() {
+        // Dump
+        StringBuilder generic = new StringBuilder();
+        generic.append("Generic");
+
+        StringBuilder fullLogs = new StringBuilder();
+        try {
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("/bin/bash", "-c",
+                    "grep -oP \"(Brand: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*brand.txt | head -1"
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            InputStream is = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line;
+                if (line.contains("qssi")) {
+                    line = "QSSI (Qualcomm Generic)";
+                }
+                fullLogs.append(line);
+            }
+            if (fullLogs.equals("")) {
+                return generic;
+            }
+            return fullLogs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generic;
+    }
+
+    private StringBuilder getCodenameOfOutput() {
+        // Dump
+        StringBuilder generic = new StringBuilder();
+        generic.append("Generic");
+
+        StringBuilder fullLogs = new StringBuilder();
+        try {
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("/bin/bash", "-c",
+                    "grep -oP \"(Codename: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*brand.txt | head -1"
             );
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -312,7 +378,7 @@ public class ErfanGSIs extends Command {
                 generateLinks.append("\n*Download Links:*");
 
                 if (links.getA() != null && !links.getA().trim().equals("")) {
-                    generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-pyxis-Aonly-10-20201130-2121-ruigsi.7z/download");
+                    generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getBrandOfOutput() + "-Aonly-10-20201130-2121-ruigsi.7z/download");
                 }
                 if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append(" | ");
@@ -320,20 +386,20 @@ public class ErfanGSIs extends Command {
                 if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
                 }
-                if (links.getA() != null && !links.getA().trim().equals("")) {
-                    generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-pyxis-AB-10-20201130-2121-ruigsi.7z/download");
+                if (links.getA() != null && !links.getAb().trim().equals("")) {
+                    generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getBrandOfOutput() + "-AB-10-20201130-2121-ruigsi.7z/download");
                 }
-                if (links.getA() != null && !links.getA().trim().equals("")) {
+                if (links.getA() != null && !links.getAb().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
                 if (links.getAb() != null && !links.getAb().trim().equals("")) {
-                    generateLinks.append("[Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
+                    generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
                 }
 
                 String descGSI = "" + new FileTools().readFile(infoGSI).trim();
 
                 bot.sendMessage("*" + gsiCmdObj.getGsi() + " GSI*"
-                        + "\n*From " + getModelOfOutput() + "*"
+                        + "\n*From " + getBrandOfOutput() + " " + getModelOfOutput() + "*"
                         + "\n\n*Information:*\n`" + descGSI
                         + "`\n" + generateLinks.toString()
                         + "\n\n*Thanks to:*\n[Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
