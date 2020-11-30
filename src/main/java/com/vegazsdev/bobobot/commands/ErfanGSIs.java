@@ -32,10 +32,11 @@ public class ErfanGSIs extends Command {
     private final String toolPath = "ErfanGSIs/";
     private File[] supportedGSIs9 = new File(toolPath + "roms/9").listFiles(File::isDirectory);
     private File[] supportedGSIs10 = new File(toolPath + "roms/10").listFiles(File::isDirectory);
+    private File[] supportedGSIs10 = new File(toolPath + "roms/11").listFiles(File::isDirectory);
     private String infoGSI = "";
 
     public ErfanGSIs() {
-        super("jurl2gsi", "Can port gsi");
+        super("url2gsi", "Can port gsi");
     }
 
     @Override
@@ -205,7 +206,7 @@ public class ErfanGSIs extends Command {
         try {
             ProcessBuilder pb;
             pb = new ProcessBuilder("/bin/bash", "-c",
-                    "grep -oP \"(?<=^Model: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*txt | head -1"
+                    "grep -oP \"(?<=^Model: ).*\" -hs \"$(pwd)\"/ErfanGSIs/output/*brand.txt | head -1"
             );
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -308,16 +309,25 @@ public class ErfanGSIs extends Command {
 
                 StringBuilder generateLinks = new StringBuilder();
      
-                generateLinks.append("\n*Download Links*");
+                generateLinks.append("\n*Download Links:*");
 
                 if (links.getA() != null && !links.getA().trim().equals("")) {
-                    generateLinks.append("\n*Aonly:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
+                    generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-pyxis-Aonly-10-20201130-2121-ruigsi.7z/download");
+                }
+                if (links.getA() != null && !links.getA().trim().equals("")) {
+                    generateLinks.append(" | ");
+                }
+                if (links.getA() != null && !links.getA().trim().equals("")) {
+                    generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
+                }
+                if (links.getA() != null && !links.getA().trim().equals("")) {
+                    generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-pyxis-AB-10-20201130-2121-ruigsi.7z/download");
                 }
                 if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
                 if (links.getAb() != null && !links.getAb().trim().equals("")) {
-                    generateLinks.append("\n*AB:* [Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
+                    generateLinks.append("[Google Drive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
                 }
 
                 String descGSI = "" + new FileTools().readFile(infoGSI).trim();
@@ -326,10 +336,10 @@ public class ErfanGSIs extends Command {
                         + "\n*From " + getModelOfOutput() + "*"
                         + "\n\n*Information:*\n`" + descGSI
                         + "`\n" + generateLinks.toString()
-                        + "\n\n*Thanks to:* [Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
-                        + "\n\n*Rui GSIs Updates Channel* [Here] (http://t.me/ruigsi)"
-                        + "\n*Rui GSIs Support Group* [Here] (http://t.me/ruiports)"
-                        + "\n*Rui GSIs Donation Link* [Here] (http://paypal.me/ruigsi)", update);
+                        + "\n\n*Thanks to:*\n[Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
+                        + "\n\n*Rui GSIs Updates Channel* [Here](http://t.me/ruigsi)"
+                        + "\n*Rui GSIs Support Group* [Here](http://t.me/ruiports)"
+                        + "\n*Rui GSIs Donation Link* [Here](http://paypal.me/ruigsi)", update);
 
                 fullLogs.append("\n").append("Finished!");
                 bot.editMessage(fullLogs.toString(), update, id);
