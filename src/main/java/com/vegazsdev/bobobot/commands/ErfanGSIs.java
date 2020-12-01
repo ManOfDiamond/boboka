@@ -377,19 +377,19 @@ public class ErfanGSIs extends Command {
      
                 generateLinks.append("\n*Download Links:*");
 
-                !links.getA().trim().equals("")) {
+                if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getCodenameofOutput() + "-Aonly-" + getVerOfOutput() + "-ruigsi.7z/download");
                 }
-                !links.getA().trim().equals("")) {
+                if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
                 if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
                 }
-                !links.getAb().trim().equals("")) {
+                if (links.getAb() != null && !links.getAb().trim().equals("")) {
                     generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getCodenameOfOutput() + "-AB-" + getVerOfOutput() + "-ruigsi.7z/download");
                 }
-                !links.getAb().trim().equals("")) {
+                if (links.getAb() != null && !links.getAb().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
                 if (links.getAb() != null && !links.getAb().trim().equals("")) {
