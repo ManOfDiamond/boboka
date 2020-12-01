@@ -377,22 +377,22 @@ public class ErfanGSIs extends Command {
      
                 generateLinks.append("\n*Download Links:*");
 
-                if (!aonly.toString().trim().equals("")) {
-                    generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getBrandOfOutput() + "-Aonly-10-20201130-2121-ruigsi.7z/download");
+                !links.getA().trim().equals("")) {
+                    generateLinks.append("\n*Aonly:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getCodenameofOutput() + "-Aonly-" + getVerOfOutput() + "-ruigsi.7z/download");
                 }
-                if (!aonly.toString().trim().equals("")) {
+                !links.getA().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
-                if (!aonly.toString().trim().equals("")) {
+                if (links.getA() != null && !links.getA().trim().equals("")) {
                     generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getA()).append(")");
                 }
-                if (!ab.toString().trim().equals("")) {
-                    generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getBrandOfOutput() + "-AB-10-20201130-2121-ruigsi.7z/download");
+                !links.getAb().trim().equals("")) {
+                    generateLinks.append("\n*AB:* [Sourceforge](https://sourceforge.net/projects/rui-ports/files/GSI/" + gsiCmdObj.getGsi() + "/" + gsiCmdObj.getGsi() + "-" + getCodenameOfOutput() + "-AB-" + getVerOfOutput() + "-ruigsi.7z/download");
                 }
-                if (!ab.toString().trim().equals("")) {
+                !links.getAb().trim().equals("")) {
                     generateLinks.append(" | ");
                 }
-                if (!ab.toString().trim().equals("")) {
+                if (links.getAb() != null && !links.getAb().trim().equals("")) {
                     generateLinks.append("[GDrive](https://drive.google.com/uc?export=download&id=").append(links.getAb()).append(")");
                 }
 
