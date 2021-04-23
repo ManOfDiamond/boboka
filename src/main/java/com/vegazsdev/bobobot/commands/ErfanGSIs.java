@@ -396,7 +396,9 @@ public class ErfanGSIs extends Command {
                         + "\n\n*Thanks to:*\n[Erfan](https://github.com/erfanoabdi/ErfanGSIs/graphs/contributors) for the tool"
                         + "\n\n*Rui GSIs Updates Channel* [Here](http://t.me/ruigsi)"
                         + "\n*Rui GSIs Support Group* [Here](http://t.me/ruiports)"
-                        + "\n*Rui GSIs Donation Link* [Here](http://paypal.me/ruigsi)", update);
+                        + "\n\n*Diamond GSIs Updates Channel* [Here](http://t.me/Diamond_GSI)"
+                        + "\n*Diamond GSIs Support Group* [Here](http://t.me/DiamondGSIGroup)", update);
+
 
                 fullLogs.append("\n").append("Finished!");
                 bot.editMessage(fullLogs.toString(), update, id);
